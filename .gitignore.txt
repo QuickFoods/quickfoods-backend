@@ -1,0 +1,28 @@
+# === Python ===
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# === Virtual environment ===
+venv/
+env/
+
+# === Django ===
+db.sqlite3
+media/
+staticfiles/
+build/
+
+# === Migrations cache ===
+*/migrations/__pycache__/
+
+# === OS / IDE files ===
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# === Git internal ===
+.git/
