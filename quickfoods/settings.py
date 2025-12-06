@@ -8,11 +8,11 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-5kgaz!g(^3n6eo5*wfx+c8tuv-l31ki9p_)1yet9&9&qg+j^p6'
+SECRET_KEY = os.environ.get("SECRET_KEY", "fallback-secret-key")
 
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = ["*", "quickfoods-backend.onrender.com", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 
 
 # -----------------------------------------------------------------------------
