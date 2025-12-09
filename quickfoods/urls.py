@@ -11,6 +11,6 @@ router.register(r"fresh-items", FreshItemViewSet, basename="freshitem")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include(router.urls)),  # <--- IMPORTANT
+    path("api/", include(router.urls)),          # existing deals/fresh/store
+    path("api/auth/", include("accounts.urls")), # <-- signup/login/member
 ]
-

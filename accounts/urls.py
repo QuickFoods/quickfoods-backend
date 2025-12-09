@@ -1,13 +1,10 @@
 # accounts/urls.py
-
 from django.urls import path
-
-# For now this is empty so Django stops complaining.
-# Later we'll wire:
-#   /api/auth/signup/
-#   /api/auth/login/
-#   /api/auth/logout/
+from . import views
 
 urlpatterns = [
-    # placeholder – no routes yet
+    path("signup/", views.signup, name="signup"),
+    path("login/", views.login, name="login"),
+    path("member/summary/", views.member_summary, name="member-summary"),
+    path("member/add-points/", views.admin_add_points, name="member-add-points"),
 ]
