@@ -8,11 +8,9 @@ import uuid
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # This is your unique member ID / barcode value
     barcode = models.CharField(max_length=20, unique=True)
     points = models.IntegerField(default=0)
-    store_id = models.CharField(max_length=20, default="", blank=True)
-
+    store_id = models.CharField(max_length=20, default="")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -16,7 +16,7 @@ class Deal(models.Model):
     SEGMENT_CHOICES = [
         ("deal", "Deal"),
         ("redeem", "Redeem"),
-        ("my", "My Rewards"),
+        ("reward", "My Reward/Member Promo"),
     ]
 
     CATEGORY_CHOICES = [
@@ -132,3 +132,28 @@ class FreshItem(models.Model):
 
     def __str__(self):
         return self.name
+
+# POS integration
+    upc = models.CharField(
+        max_length=32,
+        blank=True,
+        help_text="POS UPC/PLU for this item or bundle.",
+    )
+
+    # type of logic the POS should apply when barcode is used
+    POS_ACTION_CHOICES = [
+        ("discount_price", "Discount to special price"),
+        ("free_item", "Free item"),
+        ("points_reward", "Give points"),
+        ("punch_card", "Punch card (eg. buy 6 get 7th free)"),
+    ]
+    pos_action = models.CharField(
+        max_length=20,
+        choices=POS_ACTION_CHOICES,
+        default="discount_price",
+    )
+
+    punch_required = models.PositiveIntegerField(
+        default=0,
+        help_text="For punch-card rewards, e.g. 6 for '7th free'.",
+    )

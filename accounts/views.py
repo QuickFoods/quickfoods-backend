@@ -146,3 +146,40 @@ def admin_add_points(request):
             "new_points": customer.points,
         }
     )
+from .models import Customer
+
+@api_view(['GET'])
+def member_summary(request):
+    """
+    Returns basic member info for QR screen.
+
+    Query param: ?email=<user email you used at signup>
+    """
+    email = request.query_params.get("email")
+    if not email:
+        return Response({"error": "email is required"}, status=400)
+
+    # we used username=email when signing up
+    try:
+        user = User.objects.get(username=email)
+    except User.DoesNotExist:
+        return Response({"error": "member not found"}, status=404)
+
+    try:
+        customer = Customer.objects.get(user=user)
+    except Customer.DoesNotExist:
+        # in case the signal didn't run for some reason, create now
+        customer = Customer.objects.create(
+            user=user,
+            barcode=str(uuid.uuid4().int)[:12],
+        )
+
+    data = {
+        "full_name": user.get_full_name() or user.username,
+        "email": user.email or user.username,
+        "barcode": customer.barcode,      # 👈 use this as QR/ID
+        "points": customer.points,
+        "member_since": customer.created_at.date().isoformat(),
+        "member_id": customer.barcode,    # you can change later
+    }
+    return Response(data)

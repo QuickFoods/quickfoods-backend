@@ -28,8 +28,12 @@ class DealSerializer(serializers.ModelSerializer):
             "store",
             "store_code",
             "image_url",
+            "upc",          
+            "pos_action",   
+            "punch_required",
             "created_at",
         ]
+
 
     def get_image_url(self, obj):
         """
